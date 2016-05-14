@@ -19,7 +19,8 @@ import java.util.List;
  *
  * @author alimohammadi.
  */
-public class ChatView extends RecyclerView {
+public class ChatView extends RecyclerView
+{
     public ChatView(Context context) {
         super(context);
         initChatView(null, 0);
@@ -40,7 +41,8 @@ public class ChatView extends RecyclerView {
         setAdapter(new Adapter());
     }
 
-    public void setMessages(List<Message> messages) {
+    public void setMessages(List<Message> messages)
+    {
 
         getInternalAdapter().setMessages(messages);
 
@@ -51,6 +53,11 @@ public class ChatView extends RecyclerView {
         getInternalAdapter().addMessage(message);
     }
 
+    public void setMessageListener(MessageListener listener)
+    {
+        getInternalAdapter().setMessageListener( listener);
+    }
+
     private Adapter getInternalAdapter() {
         if (getAdapter() == null)
             setAdapter(new Adapter());
@@ -59,9 +66,11 @@ public class ChatView extends RecyclerView {
     }
 
 
-    public static class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         List<Message> messages;
+        private MessageListener listener;
 
         public Adapter() {
             messages = new ArrayList<>();
@@ -75,6 +84,10 @@ public class ChatView extends RecyclerView {
             int start = messages.size();
             messages.add(message);
             notifyItemInserted(start);
+        }
+
+        public void setMessageListener(MessageListener listener) {
+            this.listener = listener;
         }
 
         @Override
@@ -92,18 +105,44 @@ public class ChatView extends RecyclerView {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, int position)
+        {
             if (messages.get(position).getMessageType() == Message.IN_MESSAGE)
                 onBindInMessageHolder((InMessageHolder) holder,position);
             else onBindOutMessageHolder((OutMessageHolder) holder,position);
         }
 
-        private void onBindOutMessageHolder(OutMessageHolder holder, int position)
+        private void onBindOutMessageHolder(final OutMessageHolder holder, final int position)
         {
+            holder.itemView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null)
+                    {
+                        holder.mc.setSelected(!holder.mc.isSelected());
+                        listener.onMessageSelected(!holder.mc.isSelected(),position, messages.get(position));
+                    }
+                }
+            });
+
             holder.mtv.setText(messages.get(position).getMessage());
         }
 
-        private void onBindInMessageHolder(InMessageHolder holder, int position) {
+
+        private void onBindInMessageHolder(final InMessageHolder holder, final int position) {
+
+            holder.itemView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (listener != null)
+                    {
+                        holder.mc.setSelected(!holder.mc.isSelected());
+                        listener.onMessageSelected(!holder.mc.isSelected(),position, messages.get(position));
+                    }
+                }
+            });
+
             holder.mtv.setText(messages.get(position).getMessage());
         }
 
@@ -121,10 +160,12 @@ public class ChatView extends RecyclerView {
 
     private static class InMessageHolder extends RecyclerView.ViewHolder {
 
+        private View mc;
         private TextView mtv,ttv;
 
         public InMessageHolder(View itemView) {
             super(itemView);
+            mc = itemView.findViewById(R.id.message_container);
             mtv = (TextView) itemView.findViewById(R.id.msg_text);
             ttv = (TextView) itemView.findViewById(R.id.msg_time);
         }
@@ -132,15 +173,22 @@ public class ChatView extends RecyclerView {
 
     private static class OutMessageHolder extends RecyclerView.ViewHolder
     {
+        private View mc;
         private TextView mtv;
         private ImageView sendIndicator;
         private TextView ttv;
         public OutMessageHolder(View itemView)
         {
             super(itemView);
+            mc = itemView.findViewById(R.id.message_container);
             mtv = (TextView) itemView.findViewById(R.id.msg_text);
             sendIndicator = (ImageView) itemView.findViewById(R.id.msg_sendIndicator);
             ttv = (TextView) itemView.findViewById(R.id.msg_time);
         }
+    }
+
+    public interface MessageListener
+    {
+        void onMessageSelected(boolean selected,int position,Message message);
     }
 }

@@ -6,10 +6,11 @@
 
 
     <LinearLayout
+        android:id="@+id/message_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="@drawable/msg_in"
+        android:background="@drawable/in_message_background_selector"
         android:minWidth="150dp"
         android:orientation="vertical"
         android:paddingLeft="32dp"

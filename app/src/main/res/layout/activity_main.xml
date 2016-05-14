@@ -31,13 +31,15 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="ارسال پیام برای همه اعضا خانواده" />
+            android:background="@android:color/transparent"
+            android:hint="message" />
 
         <ImageView
             android:id="@+id/send_msg"
-            android:layout_width="wrap_content"
+            android:layout_width="24dp"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_send_black_24dp"
+            android:tint="@color/colorAccent"
             android:contentDescription="send message" />
     </LinearLayout>
 </RelativeLayout>

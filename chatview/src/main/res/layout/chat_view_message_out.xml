@@ -8,8 +8,9 @@
 
 
         <LinearLayout
+            android:id="@+id/message_container"
             android:layout_alignParentRight="true"
-            android:background="@drawable/msg_out"
+            android:background="@drawable/out_message_background_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
