@@ -21,22 +21,23 @@
     <LinearLayout
         android:id="@+id/send_panel"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="68dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
+
+
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="ارسال پیام برای همه اعضا خانواده" />
 
         <ImageView
             android:id="@+id/send_msg"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            app:srcCompat="@drawable/ic_send_black_24dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="ارسال پیام برای همه اعضا خانواده" />
-
+            app:srcCompat="@drawable/ic_send_black_24dp"
+            android:contentDescription="send message" />
     </LinearLayout>
 </RelativeLayout>
