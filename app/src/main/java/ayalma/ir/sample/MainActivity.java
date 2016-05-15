@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         chatView.addMessage(new Message("hello","14:11",Message.IN_MESSAGE));
 
 
-        chatView.addMessage(new Message("hello","14:11",Message.OUT_MESSAGE));
-        chatView.addMessage(new Message("hello","14:11",Message.IN_MESSAGE));
+        chatView.addMessage(new Message("سلام","14:11",Message.OUT_MESSAGE));
+        chatView.addMessage(new Message("سلام حالت خوبه","14:11",Message.OUT_MESSAGE));
         chatView.addMessage(new Message("hello","14:11",Message.OUT_MESSAGE));
 
         chatView.setMessageListener(new ChatView.MessageListener() {
