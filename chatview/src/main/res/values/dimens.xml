@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="chat_view_margin">16dp</dimen>
+    <dimen name="keyboard_height_dimen">230dp</dimen>
 </resources>
